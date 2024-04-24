@@ -11,6 +11,7 @@
         toggleHeaderOnTitleClick="false"
         headerExpanded="true"
         fitContent="true"
+        backgroundDesign="Solid"
     >
         <!-- DynamicPage Title -->
       
@@ -18,6 +19,7 @@
             <Page
                 id="page"
                 title="{i18n>title}"
+                backgroundDesign="Solid"
             >
                 <content>
                     <form:SimpleForm
@@ -26,24 +28,20 @@
                     >
                         <form:content>
                             <VBox>
-                                <Label text="Enter your project Namespace" />
-                                <Input
-                                    id="namespace"
-                                    width="50%"
-                                    placeholder="Namespace"
-                                />
-                                <Label text="Create your Entity" />
+                                <Label text="Create your Entity" required="true" />
 
                                 <Input
                                     id="EntityID"
                                     width="50%"
                                     placeholder="EntityID"
+                                    required="true"
                                 />
 
                                 <Input
                                     id="EntityNamee"
                                     width="50%"
                                     placeholder="EntityName"
+                                    required="true"
                                 />
                                 <Button
                                     id="confirmCreate1"

@@ -128,8 +128,8 @@ sap.ui.define(
           // Check if the oData object contains rows and columns properties
           if (oData) {
             return {
-              rows: 2,
-              columns: 3
+              rows: 1,
+              columns: 2
             };
           } else {
             // Handle the case when rows and columns properties are not found
@@ -202,7 +202,7 @@ sap.ui.define(
       generateCDSModel: function() {
         var cdsModel = "service modelsService {\n";
         this.table.forEach(function(entity) {
-            cdsModel += "\n\tentity models_" + entity + " as projection on models." + entity + ";";
+            cdsModel += "\n\tentity " + entity + " as projection on models." + entity + ";";
         });
       
       
@@ -352,54 +352,73 @@ sap.ui.define(
       const isSourceEntity = association.entitySource_ID === entity.ID;
       const isTargetEntity = association.entityTarget_ID === entity.ID;
       
-      if (isManyToOne && isTargetEntity) {
-      const sourceEntity = entityData.find(e => e.ID === association.entitySource_ID);
-      if (sourceEntity) {
-      cdsEntity += `\n\tfld : Association to ${sourceEntity.name};`;
-      }
-      }
-      
       if (isManyToOne && isSourceEntity) {
       const targetEntity = entityData.find(e => e.ID === association.entityTarget_ID);
       if (targetEntity) {
-      cdsEntity += `\n\t${targetEntity.name}s : Association to many ${targetEntity.name}`;
+      cdsEntity += `\n\tfld : Association to ${targetEntity.name};`;
+      }
+      }
       
-      cdsEntity += `\n\t on ${targetEntity.name}s.fld = $self;`;
+      if (isManyToOne && isTargetEntity) {
+      const sourceEntity = entityData.find(e => e.ID === association.entitySource_ID);
+      if (sourceEntity) {
+        const lowersourceEntity=sourceEntity.name.toLowerCase();
+      cdsEntity += `\n\t${lowersourceEntity} : Association to many ${sourceEntity.name}`;
+      
+      cdsEntity += `\ton ${lowersourceEntity}.fld = $self;`;
       }
       }
       if (isOneToOne && isSourceEntity) {
       const targetEntity = entityData.find(e => e.ID === association.entityTarget_ID);
       if (targetEntity) {
-      var st= targetEntity.name;
-      cdsEntity += `\n\t${st.substring(0, 4)} : Association to many ${targetEntity.name}`;
+      var st= entity.name.toLowerCase();
+      
+      cdsEntity += `\n\t${st}${targetEntity.name} : Association to ${targetEntity.name};`;
       
       }
       }
+      if (isOneToOne && isTargetEntity) {
+        const sourceEntity = entityData.find(e => e.ID === association.entitySource_ID);
+        if (sourceEntity) {
+        var st= sourceEntity.name.toLowerCase()
+        
+        cdsEntity += `\n\t${st} : Association to ${sourceEntity.name};`;
+        
+        }
+        }
       
       if (isManyToMany && isSourceEntity) {
       ismanytomany = true;
-      const sourceEntity = entityData.find(e => e.ID === association.entitySource_ID);
       const targetEntity = entityData.find(e => e.ID === association.entityTarget_ID);
+
       
-      var str1 = sourceEntity.name;
-      var str2 = targetEntity.name;
-      var ch1 = str1.substring(0, 3);
-      var ch2 = str2.substring(0, 3);
+      var str1 = entity.name.toLowerCase();
+      var str2 = targetEntity.name.toLowerCase();
+      var ch1=entity.name ; 
+      var ch2=targetEntity.name ; 
+
+
       var newname =ch1 + "2" + ch2;
+      cdsEntity += `\n\t${str2}s : Composition of many ${entity.name}To${targetEntity.name} on ${str2}s.${str1}=$self;`;
+
       
-      if (targetEntity) {
-      cdsEntity += `\n\t${targetEntity.name}s : Association to many ${newname}`;
-      cdsEntity += `\n\t on ${targetEntity.name}s.${ch1} = $self;`;
+      
       }
+      if (isManyToMany && isTargetEntity) {
+        const sourceEntity = entityData.find(e => e.ID === association.entitySource_ID);
+        var str1=sourceEntity.name.toLowerCase() ; 
+        var str2=entity.name.toLowerCase();
+
+      cdsEntity += `\n\t${str1}s : Composition of many ${sourceEntity.name}To${entity.name} on ${str1}s.${str2}=$self;`;
       }
       }
       
       if (ismanytomany === true) {
       
       cdsEntity += `\n}\n`;
-      cdsEntity += `entity ${newname} {
-      \n\tkey ${ch1} : Association to ${str1};
-      \n\tkey ${ch2} : Association to ${str2};
+      cdsEntity += `entity ${ch1}To${ch2} {
+      \n\tkey ${str1} : Association to ${ch1};
+      \n\tkey ${str2} : Association to ${ch2};
       \n}\n`;
       
       }
@@ -433,10 +452,29 @@ sap.ui.define(
         
     }
 ,
-onAppendServiceToFilePress: function(data) {
+onExecuteCommandPress: function(data) {
      
        
-  fetch("/odata/v4/models/appendServiceToFile", {
+  fetch("/odata/v4/models/ExecuteCommand", {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ command:  "/home/user/projects/Pfe/ClientProject/yo.sh" }) // Pass the variable in the request body
+  })
+  .then(response => response.json())
+  .then(data1 => {
+      console.log("Action invoked successfully:", data1);
+  })
+  .catch(error => {
+      console.error("Error invoking action:", error);
+  });
+  
+},
+onAppendTextToFilePress: function(data) {
+     
+       
+  fetch("/odata/v4/models/appendTextToFile", {
       method: "POST",
       headers: {
           "Content-Type": "application/json",
@@ -451,22 +489,76 @@ onAppendServiceToFilePress: function(data) {
       console.error("Error invoking action:", error);
   });
   
-}
-,
+},
 
-    
-     
+showServicePopup: function() {
+  var that = this;
+  var dialog = sap.m.MessageBox.show(
+      "You have selected the same entity for both the source and target entities. Please select different entities",
+      {
+          icon: sap.m.MessageBox.Icon.WARNING,
+          title: "Confirmation",
+          actions: [sap.m.MessageBox.Action.OK],
+          onClose: function(oAction) {
+              if (oAction === sap.m.MessageBox.Action.OK) {
+                  // L'utilisateur a choisi de continuer, rien à faire ici
+              }
+          }
+      }
+  );
 
- 
+  // Désactiver le bouton "OK" après l'affichage de la boîte de dialogue
+  dialog.getBeginButton().setEnabled(false);
+},
+showCDSPopup: function() {
+  var that = this;
+  var dialog = sap.m.MessageBox.show(
+      "You have selected the same entity for both the source and target entities. Please select different entities",
+      {
+          icon: sap.m.MessageBox.Icon.WARNING,
+          title: "Confirmation",
+          actions: [sap.m.MessageBox.Action.OK],
+          onClose: function(oAction) {
+              if (oAction === sap.m.MessageBox.Action.OK) {
+                  // L'utilisateur a choisi de continuer, rien à faire ici
+              }
+          }
+      }
+  );
 
+  // Désactiver le bouton "OK" après l'affichage de la boîte de dialogue
+  dialog.getBeginButton().setEnabled(false);
+},
 
-  
-
+handleAboutPress: function () {
+  var Model = this.getOwnerComponent().getModel("localModel");
+  Model.setProperty("/layout", "EndColumnExpanded");
+  this.getOwnerComponent().getRouter().navTo("page2");
+},
+onOpenAddDialog: function () {
+  this.getView().byId("mainDialog").open();
+},
+onCancelDialog: function (oEvent) {
+  this.getView().byId("mainDialog").close();
+},
+onOpenAddDialog1: function () {
+  this.getView().byId("mainDialog1").open();
+},
+onCancelDialog1: function (oEvent) {
+  this.getView().byId("mainDialog1").close();
+},
+onOpenAddDialog3: function () {
+  this.getView().byId("mainDialog3").open();
+},
+onCancelDialog3: function (oEvent) {
+  this.getView().byId("mainDialog3").close();
+},
 
 
 
   });
   }
+  
   
 
 );

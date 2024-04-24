@@ -4,12 +4,14 @@ sap.ui.define([
     "sap/f/library",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
+    "sap/m/MessageBox"
+
 
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, MessageToast, fioriLibrary, Filter, FilterOperator,) {
+    function (Controller, MessageToast, fioriLibrary, Filter, FilterOperator,MessageBox) {
         "use strict";
 
         return Controller.extend("app.project1.controller.List", {
@@ -18,19 +20,71 @@ sap.ui.define([
                 /*  var oDetailModel = new sap.ui.model.json.JSONModel();
                  this.getView().setModel(oDetailModel, "detailModel");
                 */
+               /*   this.oCheckBox = this.byId("checkbox");
 
+                 // Récupérer la référence des inputs que vous souhaitez contrôler
+                 this.oInput1 = this.byId("namespace");
+                 this.oInput2 = this.byId("EntityID");
+             
+                 // Attacher un gestionnaire d'événement au changement de la case à cocher
+                 this.oCheckBox.attachSelect(this.onCheckBoxSelect, this);
+ */
 
+            },
+           /*  onCheckBoxSelect: function(oEvent) {
+                var bSelected = oEvent.getParameter("selected");
+            
+                // Mettre à jour la visibilité des inputs en fonction de l'état de la case à cocher
+                if (bSelected) {
+                    this.oInput1.setVisible(true);
+                    this.oInput2.setVisible(true);
+                } else {
+                    this.oInput1.setVisible(false);
+                    this.oInput2.setVisible(false);
+                }
+            }, */
+            _validateInput: function (oInput) {
+                var sValueState = "None";
+                var bValidationError = false;
+                var oBinding = oInput.getBinding("value");
+    
+                try {
+                    oBinding.getType().validateValue(oInput.getValue());
+                } catch (oException) {
+                    sValueState = "Error";
+                    bValidationError = true;
+                }
+    
+                oInput.setValueState(sValueState);
+    
+                return bValidationError;
             },
             onCreate: function () {
 
                 const oList = this._oTable;
                 const oBinding = oList.getBinding("items");
+                var oView = this.getView(),
+				aInputs = [
+				oView.byId("EntityID"),
+				oView.byId("EntityNamee")
+			],
+				bValidationError = false;
+			aInputs.forEach(function (oInput) {
+				bValidationError = this._validateInput(oInput) || bValidationError;
+			}, this);
+
+			if (!bValidationError) {
                 const oContext = oBinding.create({
                     "ID": this.byId("EntityID").getValue(),
                     "name": this.byId("EntityNamee").getValue(),
 
 
                 });
+				MessageToast.show("The input is validated. Your form has been submitted.");
+			} else {
+				MessageBox.alert("A validation error has occurred. Complete your input first.");
+			}
+               
 
 
 

@@ -27,7 +27,8 @@
         "build": "rimraf resources mta_archives && mbt build --mtar archive",
         "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
         "watch-project1": "cds watch --open project1/webapp/index.html?sap-ui-xx-viewCache=false",
-        "watch-project2": "cds watch --open project2/webapp/index.html?sap-ui-xx-viewCache=false"
+        "watch-project2": "cds watch --open project2/webapp/index.html?sap-ui-xx-viewCache=false",
+        "watch-project4": "cds watch --open project4/webapp/index.html?sap-ui-xx-viewCache=false"
     },
     "cds": {
         "requires": {
@@ -38,6 +39,8 @@
         "app/project2",
         "app/project2",
         "app/project2",
-        "app/project2"
+        "app/project2",
+        "app/project2",
+        "app/project4"
     ]
 }

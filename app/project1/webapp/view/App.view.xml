@@ -4,37 +4,40 @@
 	xmlns="sap.f"
 	xmlns:m="sap.m"
 	xmlns:mvc="sap.ui.core.mvc">
-<m:Page id="app1">
-			<!-- <ShellBar
-					title="Application Title" secondTitle="Short description"
-					  homeIcon="app/project1/webapp/localSource/467_sap.png"
+		<ShellBar
+					title="Cap app Generator" secondTitle="Short description"
+					  homeIcon="./localSource/467_sap.jpg"
 					  showCopilot="true"
 					  showSearch="true"
 					  showNotifications="true"
-					  notificationsNumber="2"
+					  notificationsNumber="99"
 					  navButtonPressed="handleBackButtonPressed"
+					  
 			>
+       
 				<menu>
 					<m:Menu>
-						<m:MenuItem text="Flight booking" icon="sap-icon://flight" />
-						<m:MenuItem text="Car rental" icon="sap-icon://car-rental" />
+						<m:MenuItem text="Cap app Generator" icon="sap-icon://flight" />
 					</m:Menu>
 				</menu>
 				<profile>
 					<m:Avatar initials="UI"/>
 				</profile>
-			</ShellBar> -->
+			</ShellBar> 
 			
-	<FlexibleColumnLayout id="app" backgroundDesign="Solid" stateChange="onStateChanged" layout="{localModel>/layout}">
+	<FlexibleColumnLayout id="app" backgroundDesign="Solid" stateChange="onStateChanged" layout="{localModel>/layout}" >
 		<beginColumnPages>
 			<mvc:XMLView id="beginView" viewName="app.project1.view.List"/>
 		</beginColumnPages>
         <midColumnPages>
 			<mvc:XMLView id="detailView" viewName="app.project1.view.Fields"/>
 		</midColumnPages>
+		 
         <endColumnPages>
         <mvc:XMLView id="thirdView" viewName="app.project1.view.Association"/>
     </endColumnPages>
+	
+	
+	 
 	</FlexibleColumnLayout>
-    </m:Page>
 </mvc:View>

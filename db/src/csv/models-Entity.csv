@@ -1,5 +1,5 @@
 ID,createdAt,createdBy,modifiedAt,modifiedBy,name
-1,2024-03-19T10:43:19.122Z,anonymous,2024-03-19T10:43:19.122Z,anonymous,Orders
-2,2024-03-19T10:43:19.122Z,anonymous,2024-03-19T10:43:19.122Z,anonymous,Customers
-3,2024-03-19T10:43:19.122Z,anonymous,2024-03-19T10:43:19.122Z,anonymous,Products
+1,2024-03-19T10:43:19.122Z,anonymous,2024-03-19T10:43:19.122Z,anonymous,Order
+2,2024-03-19T10:43:19.122Z,anonymous,2024-03-19T10:43:19.122Z,anonymous,Customer
+3,2024-03-19T10:43:19.122Z,anonymous,2024-03-19T10:43:19.122Z,anonymous,Product
 4,2024-03-19T10:43:19.122Z,anonymous,2024-03-19T10:43:19.122Z,anonymous,Client

@@ -42,8 +42,8 @@ sap.ui.define(
 
                 var AssociationType = {
                     "Type": [
-                      { key: 0, type: "ManyToMany " },
-                      { key: 1, type: "ManyToOne " },
+                      { key: 0, type: "ManyToMany" },
+                      { key: 1, type: "ManyToOne" },
                       { key: 2, type: "OneToOne" },
                     ]
                   };
@@ -74,14 +74,17 @@ sap.ui.define(
 
             onEditToggleButtonPress: function () {
 
-                var oObjectPage = this.getView().byId("ObjectPageLayout"),
+                var oObjectPage = this.getView().byId("ObjectPagea"),
                     bCurrentShowFooterState = oObjectPage.getShowFooter();
 
                 oObjectPage.setShowFooter(!bCurrentShowFooterState);
             },
             onSupplierPress: function () {
                 var Model = this.getOwnerComponent().getModel("localModel");
-                Model.setProperty("/layout", "ThreeColumnsMidExpanded");
+                this.getOwnerComponent().getRouter().navTo("Assosciation"
+                );
+                Model.setProperty("/layout", "ThreeColumnsEndExpanded");
+
 
             },
             onCloneInputField: function (event) {
@@ -419,9 +422,9 @@ sap.ui.define(
                             } else {
                                 var oBindList = oModel.bindList("/Association");
                                 oBindList.create({
-                                    entitySource: entity1,
-                                    entityTarget: entity2,
-                                    type: type
+                                    entitySource:entity1,
+                                    entityTarget:entity2,
+                                    type:type
                                 });
                             }
                         })

@@ -1,0 +1,130 @@
+<mvc:View
+    controllerName="app.project1.controller.UI"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:f="sap.f"
+    xmlns:card="sap.f.cards"
+    xmlns:core="sap.ui.core"
+    xmlns:w="sap.ui.integration.widgets"
+    displayBlock="true"
+    	xmlns:l="sap.ui.layout"
+	xmlns:form="sap.ui.layout.form"
+    height="100%"
+>
+    <ScrollContainer
+        height="100%"
+        width="100%"
+    >
+     <VBox>
+     	<ObjectHeader title="Welcome!Let's bring your ideas to life. Start by generating your personalized ui"
+							intro="Template Selection : Choose your application template."
+							responsive="true" titleLevel="H5"/>
+            
+
+
+        <f:GridContainer
+            id="demoGrid"
+            class="sapUiSmallMargin"
+            columnsChange=".onGridColumnsChange"
+            
+        >
+            <f:layout>
+                <f:GridContainerSettings
+                    rowSize="84px"
+                    columnSize="84px"
+                    gap="8px"
+                />
+            </f:layout>
+            <f:layoutXS>
+                <f:GridContainerSettings
+                    rowSize="70px"
+                    columnSize="70px"
+                    gap="8px"
+                />
+            </f:layoutXS>
+            <f:Card  >
+            
+                <f:layoutData>
+                    <f:GridContainerItemLayoutData   columns="2" />
+                </f:layoutData>
+                <f:header>
+                    <card:Header
+                        title="List Report Page"
+                        press="onPress"
+                    />
+                </f:header>
+                <f:content>
+                    <VBox
+                        height="115px"
+                        class="sapUiSmallMargin"
+                        justifyContent="SpaceBetween"
+                    >
+                        <Text
+                            text="Create an SAP Fiori elements application containing a list report and an object page."
+                        />
+                        <Link
+                            text="More Information"
+                            target="_blank"
+                            href="https://help.sap.com/docs/SAP_FIORI_tools/17d50220bcd848aa854c9c182d65b699/2b2b12e708944d85a40d087194cc1edd.html?locale=en-US"
+                        />
+                    </VBox>
+                </f:content>
+            </f:Card>
+            <f:Card>
+                <f:layoutData>
+                    <f:GridContainerItemLayoutData columns="2" />
+                </f:layoutData>
+                <f:header>
+                    <card:Header
+                        title="Custom Page"
+                        press="onPress"
+                    />
+                </f:header>
+                <f:content>
+                    <VBox
+                        height="115px"
+                        class="sapUiSmallMargin"
+                        justifyContent="SpaceBetween"
+                    >
+                        <Text
+                            text="Create an SAP Fiori elements application containing a custom page based on the flexible programming model."
+                        />
+                        <Link
+                            text="More Information"
+                            target="_blank"
+                            href="https://help.sap.com/docs/SAP_FIORI_tools/17d50220bcd848aa854c9c182d65b699/2b2b12e708944d85a40d087194cc1edd.html?locale=en-US"
+                        />
+                    </VBox>
+                </f:content>
+            </f:Card>
+            <f:Card>
+                <f:layoutData>
+                    <f:GridContainerItemLayoutData columns="2" />
+                </f:layoutData>
+                <f:header>
+                    <card:Header
+                        title="Basic Page"
+                        press="onPress"
+                    />
+                </f:header>
+                <f:content>
+                    <VBox
+                        height="115px"
+                        class="sapUiSmallMargin"
+                        justifyContent="SpaceBetween"
+                    >
+                        <Text
+                            text="Create a freestyle application, starting with an empty page."
+                        />
+                         <Link
+                            text="More Information"
+                            target="_blank"
+                            href="https://help.sap.com/docs/SAP_FIORI_tools/17d50220bcd848aa854c9c182d65b699/2b2b12e708944d85a40d087194cc1edd.html?locale=en-US"
+                        />
+                    </VBox>
+                </f:content>
+            </f:Card>
+        </f:GridContainer>
+        </VBox>
+    </ScrollContainer>
+</mvc:View>

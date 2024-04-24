@@ -1,115 +1,404 @@
 <mvc:View
     controllerName="app.project1.controller.Association"
     xmlns="sap.m"
-
     xmlns:mvc="sap.ui.core.mvc"
-	xmlns:l="sap.ui.layout"
-  	xmlns:f="sap.f"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.f"
+    xmlns:form="sap.ui.layout.form"
     xmlns:card="sap.f.cards"
     xmlns:w="sap.ui.integration.widgets"
     displayBlock="true"
     height="100%"
-		xmlns:core="sap.ui.core">
-		<Page title="  Generate your service " icon=""> 
-			<headerContent>
-			<Button icon="sap-icon://write-new-document" tooltip="Share" />
-		</headerContent>
-    		<ScrollContainer height="100%" width="100%" vertical="true">
-		<HBox renderType="Bare">
-			<List
-				id="list1"
-				headerText="Entities"
-				class="sapUiSmallMargin"
-				width="200px"
-				items="{path: '/' }">
-					<StandardListItem title="{name}" description="{ID}" info="created" iconInset="false"  infoState="Success" icon="sap-icon://hr-approval" 	infoStateInverted="true" />
-			</List>
+    xmlns:core="sap.ui.core"
+>
+    <Page showHeader="false" backgroundDesign="Solid">
+        <ScrollContainer
+            height="100%"
+            width="100%"
+            vertical="true"
+            
+        >
+            <ObjectHeader
+                title=" Elevate your project by generating a bespoke service file. "
+                intro="Choose the entities that best suit your needs and enrich your service ecosystem effortlessly."
+                responsive="true"
+                titleLevel="H5"
+            />
+            <Dialog
+                id="mainDialog"
+                title="List Report"
+            >
+                <content>
+                    <VBox
+                        class="sapUiSmallMargin"
+                        id="formContainer"
+                    >
+                        <form:SimpleForm
+                            id="SimpleFormChangeColumn_twoGroups234"
+                            editable="true"
+                            title="Template Information"
+                        >
+                            <form:content>
+                                <Label text="Project Name" />
+                                <Input
+                                    required="true"
+                                    change="onChange"
+                                />
+                                <Label text="Application Title" />
+                                <Input value="" />
 
-				
-			<f:GridContainer
-				id="grid1"
-				class="sapUiSmallMargin"
-				width="100%"
-				snapToRow="true"
-    items="{ path: '/'}">
- 
-  
-			
-				<f:layout>
-					<f:GridContainerSettings rowSize="84px" columnSize="84px" gap="8px" />
-				</f:layout>
-				<f:layoutXS>
-					<f:GridContainerSettings rowSize="70px" columnSize="70px" gap="8px" />
-				</f:layoutXS>
+                                <Label text="Template Namespace" />
 
-				<f:Card>
-					
-					<f:layoutData>
-					
-						<f:GridContainerItemLayoutData minRows="1" columns="3" />
-					</f:layoutData>
-					<f:header>
-						<card:Header title="{name}" />
-					</f:header>
-						<f:content>
-			<List
-				class="sapUiSmallMarginBottom"
-				showSeparators="None"
-				items="{
-					path: '/'
-				}">
-				<CustomListItem>
-					<HBox alignItems="Center" justifyContent="SpaceBetween">
-						<VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
-							<Title level="H3" text="{name}" />
-							<Text text="{ID}" />
-						</VBox>
-						<ObjectStatus
-							class="sapUiTinyMargin sapUiSmallMarginEnd"
-							text="{name}"
-							 />
-					</HBox>
-				</CustomListItem>
-			</List>
-		</f:content>
-				</f:Card>
-					
+                                <Input value="" />
 
-			</f:GridContainer>
-		
-		</HBox>
-			
-			
-	
-		
+                                <Label text="Application Description" />
+                                <Input value="" />
+                                <Label text="Main Entity" />
+                                <Select id="Mainentity" />
+                            </form:content>
+                        </form:SimpleForm>
+                    </VBox>
+                </content>
+                <footer>
+                    <Toolbar>
+                        <content>
+                            <ToolbarSpacer />
+                            <Button
+                                type="Accept"
+                                text="Save"
+                                press="._generateInvalidUserInput"
+                            />
+                            <Button
+                                id="Reject"
+                                text="Reject"
+                                type="Reject"
+                                press="._closeDialog"
+                                ariaHasPopup="Dialog"
+                            />
+                        </content>
+                    </Toolbar>
+                </footer>
+            </Dialog>
+             <Dialog
+                id="mainDialog1"
+                title="Custom Page"
+            >
+                <content>
+                    <VBox
+                        class="sapUiSmallMargin"
+                        id="formContainer1"
+                    >
+                        <form:SimpleForm
+                            id="SimpleFormChangeColumn_twoGroups2341"
+                            editable="true"
+                            title="Template Information"
+                        >
+                            <form:content>
+                                <Label text="Project Name" />
+                                <Input
+                                    required="true"
+                                    change="onChange"
+                                />
+                                <Label text="Application Title" />
+                                <Input value="" />
 
+                                <Label text="Template Namespace" />
 
-	</ScrollContainer>
-		<footer>
-			<OverflowToolbar id="otbFooter">
-				<ToolbarSpacer/>
-					<Button
-			id="aa"
-			text="GenenrateService"
-			press="generateCDSModel"
-			type="Accept"
-			icon="sap-icon://collaborate"
-			 />
-			 <Button
-			id="cds"
-			text="GenerateCds"
-			press=".OnCdsgen"
-			type="Accept"
-			 />
-			
+                                <Input value="" />
 
-			
-				
-				
+                                <Label text="Application Description" />
+                                <Input value="" />
+                                <Label text="Main Entity" />
+                                <Select id="Mainentity1" />
+                            </form:content>
+                        </form:SimpleForm>
+                    </VBox>
+                </content>
+                <footer>
+                    <Toolbar>
+                        <content>
+                            <ToolbarSpacer />
+                            <Button
+                                type="Accept"
+                                text="Save"
+                                press="._generateInvalidUserInput"
+                            />
+                            <Button
+                                id="Reject1"
+                                text="Reject"
+                                type="Reject"
+                                press="._closeDialog"
+                                ariaHasPopup="Dialog"
+                            />
+                        </content>
+                    </Toolbar>
+                </footer>
+            </Dialog>
+            <Dialog
+                id="mainDialog3"
+                title="  Basic Page"
+            >
+                <content>
+                    <VBox
+                        class="sapUiSmallMargin"
+                        id="formContainer2"
+                    >
+                        <form:SimpleForm
+                            id="SimpleFormChangeColumn_twoGroups2343"
+                            editable="true"
+                            title="Template Information"
+                        >
+                            <form:content>
+                                <Label text="Project Name" />
+                                <Input
+                                    required="true"
+                                    change="onChange"
+                                />
+                                <Label text="Application Title" />
+                                <Input value="" />
 
-			</OverflowToolbar>
-		</footer>
-	</Page>
-	
+                                <Label text="Template Namespace" />
 
+                                <Input value="" />
+
+                                <Label text="Application Description" />
+                                <Input value="" />
+                                <Label text="Main Entity" />
+                                <Select id="Mainentity2" />
+                            </form:content>
+                        </form:SimpleForm>
+                    </VBox>
+                </content>
+                <footer>
+                    <Toolbar>
+                        <content>
+                            <ToolbarSpacer />
+                            <Button
+                                type="Accept"
+                                text="Save"
+                                press="._generateInvalidUserInput"
+                            />
+                            <Button
+                                id="Reject2"
+                                text="Reject"
+                                type="Reject"
+                                press="._closeDialog"
+                                ariaHasPopup="Dialog"
+                            />
+                        </content>
+                    </Toolbar>
+                </footer>
+            </Dialog>
+            <HBox renderType="Bare">
+                <List
+                    id="list1"
+                    headerText="Entities"
+                    class="sapUiSmallMargin"
+                    width="auto"
+                    backgroundDesign="Solid"
+                    items="{path: '/' }"
+                >
+                    <StandardListItem
+                        title="{name}"
+                        description="{ID}"
+                        info="created"
+                        iconInset="false"
+                        infoState="Success"
+                        icon="sap-icon://hr-approval"
+                        infoStateInverted="true"
+                    />
+                </List>
+
+                <f:GridContainer
+                    id="grid1"
+                    class="sapUiSmallMargin"
+                    width="100%"
+                    snapToRow="true"
+                    items="{ path: '/'}"
+                    
+                    
+                >
+                    <f:layout>
+                        <f:GridContainerSettings
+                            rowSize="50px"
+                            columnSize="50px"
+                            gap="8px"
+                        />
+                    </f:layout>
+                    <f:layoutXS>
+                        <f:GridContainerSettings
+                            rowSize="50px"
+                            columnSize="50px"
+                            gap="8px"
+                        />
+                    </f:layoutXS>
+
+                    <f:Card>
+                        <f:layoutData>
+                            <f:GridContainerItemLayoutData
+                                minRows="1"
+                                columns="2"
+                            />
+                        </f:layoutData>
+                        <f:header>
+                            <card:Header title="{name}" />
+                        </f:header>
+                        <f:content />
+                    </f:Card>
+                </f:GridContainer>
+            </HBox>
+            <VBox>
+                <ObjectHeader
+                    title=" Start by generating your personalized ui"
+                    intro="Template Selection : Choose your application template."
+                    responsive="true"
+                    titleLevel="H5"
+                />
+
+                <f:GridContainer
+                    id="demoGrid"
+                    class="sapUiSmallMargin"
+                    columnsChange=".onGridColumnsChange"
+                >
+                    <f:layout>
+                        <f:GridContainerSettings
+                            rowSize="84px"
+                            columnSize="84px"
+                            gap="8px"
+                        />
+                    </f:layout>
+                    <f:layoutXS>
+                        <f:GridContainerSettings
+                            rowSize="70px"
+                            columnSize="70px"
+                            gap="8px"
+                        />
+                    </f:layoutXS>
+                    <f:Card>
+                        <f:layoutData>
+                            <f:GridContainerItemLayoutData columns="2" />
+                        </f:layoutData>
+                        <f:header>
+                            <card:Header
+                                title="List Report "
+                                press="onOpenAddDialog"
+                            />
+                        </f:header>
+                        <f:content>
+                            <VBox
+                                height="115px"
+                                class="sapUiSmallMargin"
+                                justifyContent="SpaceBetween"
+                            >
+                                <Text
+                                    text="Create an SAP Fiori elements application containing a list report and an object page."
+                                />
+                                <Link
+                                    text="More Information"
+                                    target="_blank"
+                                    href="https://help.sap.com/docs/SAP_FIORI_tools/17d50220bcd848aa854c9c182d65b699/2b2b12e708944d85a40d087194cc1edd.html?locale=en-US"
+                                />
+                                <Button
+                                    icon="sap-icon://arrow-right"
+                                    tooltip="selected template"
+                                    press="onOpenAddDialog"
+                                />
+                            </VBox>
+                        </f:content>
+                    </f:Card>
+                    <f:Card>
+                        <f:layoutData>
+                            <f:GridContainerItemLayoutData columns="2" />
+                        </f:layoutData>
+                        <f:header>
+                            <card:Header
+                                title="Custom Page"
+                                press="onPress"
+                            />
+                        </f:header>
+                        <f:content>
+                            <VBox
+                                height="115px"
+                                class="sapUiSmallMargin"
+                                justifyContent="SpaceBetween"
+                            >
+                                <Text
+                                    text="Create a Fiori elements app with a custom page."
+                                />
+                                <Link
+                                    text="More Information"
+                                    target="_blank"
+                                    href="https://help.sap.com/docs/SAP_FIORI_tools/17d50220bcd848aa854c9c182d65b699/2b2b12e708944d85a40d087194cc1edd.html?locale=en-US"
+                                />
+                                <Button
+                                    icon="sap-icon://arrow-right"
+                                    tooltip="selected template"
+                                    press="onOpenAddDialog1"
+                                />
+                            </VBox>
+                        </f:content>
+                    </f:Card>
+                    <f:Card>
+                        <f:layoutData>
+                            <f:GridContainerItemLayoutData columns="2" />
+                        </f:layoutData>
+                        <f:header>
+                            <card:Header
+                                title="Basic Page"
+                                press="onPress"
+                            />
+                        </f:header>
+                        <f:content>
+                            <VBox
+                                height="115px"
+                                class="sapUiSmallMargin"
+                                justifyContent="SpaceBetween"
+                            >
+                                <Text
+                                    text="Create a freestyle application, starting with an empty page."
+                                />
+                                <Link
+                                    text="More Information"
+                                    target="_blank"
+                                    href="https://help.sap.com/docs/SAP_FIORI_tools/17d50220bcd848aa854c9c182d65b699/2b2b12e708944d85a40d087194cc1edd.html?locale=en-US"
+                                />
+                                <Button
+                                    icon="sap-icon://arrow-right"
+                                    tooltip="selected template"
+                                    press="onOpenAddDialog3"
+                                />
+                            </VBox>
+                        </f:content>
+                    </f:Card>
+                </f:GridContainer>
+            </VBox>
+        </ScrollContainer>
+        <footer>
+            <OverflowToolbar id="otbFooter">
+                <ToolbarSpacer />
+
+                <Button
+                    id="cds"
+                    text="GenerateCds"
+                    press=".OnCdsgen"
+                    type="Accept"
+                    icon="sap-icon://clinical-order"
+                />
+                <Button
+                    id="aa"
+                    text="GenenrateService"
+                    press="generateCDSModel"
+                    type="Accept"
+                    icon="sap-icon://write-new-document"
+                />
+                <Button
+                    id="ui"
+                    text="GenenrateUI"
+                    press="onExecuteCommandPress"
+                    type="Accept"
+                    icon="sap-icon://sap-ui5"
+                />
+            </OverflowToolbar>
+        </footer>
+    </Page>
 </mvc:View>

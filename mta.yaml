@@ -46,6 +46,10 @@ modules:
       - project2.zip
       name: project2
       target-path: resources/
+    - artifacts:
+      - ttproject4.zip
+      name: ttproject4
+      target-path: resources/
 - name: appgenerator
   type: html5
   path: app/app_generator
@@ -69,6 +73,16 @@ modules:
 - name: project2
   type: html5
   path: app/project2
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: ttproject4
+  type: html5
+  path: app/project4
   build-parameters:
     build-result: dist
     builder: custom
